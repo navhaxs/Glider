@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 function initMultiArray(...dimensions) {
   function initMultiArrayRec(dimIndex) {
     if (dimIndex >= dimensions.length) {
@@ -6,8 +6,8 @@ function initMultiArray(...dimensions) {
     } else {
       const dim = dimensions[dimIndex];
       const arr = [];
-      for (let i=0; i<dim; i++) {
-        arr.push(initMultiArrayRec(dimIndex+1));
+      for (let i = 0; i < dim; i++) {
+        arr.push(initMultiArrayRec(dimIndex + 1));
       }
       return arr;
     }
@@ -15,40 +15,37 @@ function initMultiArray(...dimensions) {
   return initMultiArrayRec(0);
 }
 
-function CycleRec()
-{
-    this.holdRect = new Rect(0, 0, 0, 0);
-    this.wholeRect = new Rect(0, 0, 0, 0);
-    this.tiedTo = 0;
-    this.kindIs = 0;
-    this.phase = 0;
-    this.reset = 0;
-    this.position = 0;
-    this.accel = 0;
-    this.velocity = 0;
+function CycleRec() {
+  this.holdRect = new Rect(0, 0, 0, 0);
+  this.wholeRect = new Rect(0, 0, 0, 0);
+  this.tiedTo = 0;
+  this.kindIs = 0;
+  this.phase = 0;
+  this.reset = 0;
+  this.position = 0;
+  this.accel = 0;
+  this.velocity = 0;
 }
 
-function LightningRec()
-{
+function LightningRec() {
   this.theBolts = initMultiArray(4, 8, 2);
   this.whichBolt = 0;
   this.whatPhase = 0;
   this.whatTime = 0;
 }
 
-function GliderRec()
-{
-  this.destRect = new Rect(0,0,0,0);
-  this.wholeRect = new Rect(0,0,0,0);
+function GliderRec() {
+  this.destRect = new Rect(0, 0, 0, 0);
+  this.wholeRect = new Rect(0, 0, 0, 0);
 
-  this.shadoDest = new Rect(0,0,0,0);
-  this.wholeShado = new Rect(0,0,0,0);
+  this.shadoDest = new Rect(0, 0, 0, 0);
+  this.wholeShado = new Rect(0, 0, 0, 0);
 
-  this.touchRect = new Rect(0,0,0,0);
+  this.touchRect = new Rect(0, 0, 0, 0);
 
   this.timeStamp = 0;
   this.mode = 0;
-  this.phase= 0;
+  this.phase = 0;
   this.srcNum = 0;
   this.forVel = 0;
   this.mass = 0;
@@ -58,18 +55,16 @@ function GliderRec()
   this.isForward = true;
 }
 
-function BandRec()
-{
-  this.dest =  new Rect(0,0,0,0);;
-  this.whole =  new Rect(0,0,0,0);; 
+function BandRec() {
+  this.dest = new Rect(0, 0, 0, 0);
+  this.whole = new Rect(0, 0, 0, 0);
   this.phase = 0;
   this.velocity = 0;
 }
 
-function AnimateRec()
-{
-  this.destRect = new Rect(0,0,0,0);
-  this.wholeRect = new Rect(0,0,0,0);
+function AnimateRec() {
+  this.destRect = new Rect(0, 0, 0, 0);
+  this.wholeRect = new Rect(0, 0, 0, 0);
   this.horiOff = 0;
   this.vertOff = 0;
   this.kind = 0;
@@ -79,21 +74,20 @@ function AnimateRec()
   this.unSeen = true;
 }
 
-function PointRec()
-{
+function PointRec() {
   this.whereR = new Rect(0, 0, 0, 0);
   this.tickStamp = 0;
   this.saysWhat = "";
   this.out = false;
 }
 
-const kMinBassLoop = 14;			// quickest pace of duh-dum
-const kBassFract = 8;				// smaller = slower bass @ 1st / larger = quicker
-const kBonusTimeToBeat = 256;		// number of passes for time bonus
-const kCeilingVert = 24;			//absolute ceiling in pixels
-const kFloorVert = 325;			//absolute floor in pixels
+const kMinBassLoop = 14; // quickest pace of duh-dum
+const kBassFract = 8; // smaller = slower bass @ 1st / larger = quicker
+const kBonusTimeToBeat = 256; // number of passes for time bonus
+const kCeilingVert = 24; //absolute ceiling in pixels
+const kFloorVert = 325; //absolute floor in pixels
 const kFloorLimit = kFloorVert + 5;
-const kMaxThrust = 5;				// maximum speed (in pixels) of glider
+const kMaxThrust = 5; // maximum speed (in pixels) of glider
 
 // furniture
 const table = 1;
@@ -135,7 +129,6 @@ const fshBwl = 35;
 const teaKtl = 36;
 const wind = 37;
 
-
 // jewelry
 const paintg = 40;
 const mirror = 41;
@@ -144,7 +137,7 @@ const macTsh = 43;
 const upStar = 44;
 const dnStar = 45;
 
-const normal = 0;		//glider situational modes
+const normal = 0; //glider situational modes
 const fadingIn = 1;
 const fadingOut = 2;
 const turnRt2Lf = 3;
@@ -154,30 +147,30 @@ const ascending = 6;
 const descending = 7;
 const shredding = 8;
 //objects effects codes
-const ignoreIt = 0;		//null or unknown objects
-const crashIt = 1;		//tables, shelves, cabinets, etc...
-const liftIt = 2;		//floor vents
-const dropIt = 3;		//ceiling blower, some ducts
-const moveIt = 4;		//exit rects/suction ceiling ducts
-const burnIt = 5;		//candle if too close
-const turnItLeft = 6;		//left fan
-const turnItRight = 7;	//right fan
-const awardIt = 8;		//clocks
-const extraIt = 9;		//folded pieces of paper
-const slideIt = 10;		//grease fallen
-const trickIt = 11;		//bonus rect
-const energizeIt = 12;	//battery
-const bandIt = 13;		//rubber bands
-const playIt = 14;		//guitar
-const lightIt = 15;		//light switch
-const zapIt = 16;		//wall outlet
-const airOnIt = 17;		//thermostats
-const shredIt = 18;		//shredder
-const toggleIt = 19;		//power switch
-const weightIt = 20;		//?
-const spillIt = 21;		//grease standing up
-const ascendIt = 22;		//up stair case
-const descendIt = 23;		//down stair case
+const ignoreIt = 0; //null or unknown objects
+const crashIt = 1; //tables, shelves, cabinets, etc...
+const liftIt = 2; //floor vents
+const dropIt = 3; //ceiling blower, some ducts
+const moveIt = 4; //exit rects/suction ceiling ducts
+const burnIt = 5; //candle if too close
+const turnItLeft = 6; //left fan
+const turnItRight = 7; //right fan
+const awardIt = 8; //clocks
+const extraIt = 9; //folded pieces of paper
+const slideIt = 10; //grease fallen
+const trickIt = 11; //bonus rect
+const energizeIt = 12; //battery
+const bandIt = 13; //rubber bands
+const playIt = 14; //guitar
+const lightIt = 15; //light switch
+const zapIt = 16; //wall outlet
+const airOnIt = 17; //thermostats
+const shredIt = 18; //shredder
+const toggleIt = 19; //power switch
+const weightIt = 20; //?
+const spillIt = 21; //grease standing up
+const ascendIt = 22; //up stair case
+const descendIt = 23; //down stair case
 const steamIt = 24;
 
 const patGray = 1000;
@@ -185,7 +178,7 @@ const patGrayTransparent = 1001;
 const patRisingAir = 1002;
 const patHorizontalAir = 1003;
 
-const whoCares = 0;		// place where entered room
+const whoCares = 0; // place where entered room
 const topOfRoom = 1;
 const bottomOfRoom = 2;
 const leftOfRoom = 3;
@@ -194,26 +187,25 @@ const rightOfRoom = 4;
 const kWhistleSound = 13;
 const kTapSound = 27;
 const kCRSound = 28;
-const kMusicSound = 29;	// ID of music sound
-const kDuhDumSound = 30;	// ID of bass beat
+const kMusicSound = 29; // ID of music sound
+const kDuhDumSound = 30; // ID of bass beat
 
-let rgbBlack = 'rgba(0, 0, 0, 1.0)'
-let rgbBlue = 'rgba(0, 0, 255, 1.0)'
-let rgbBrown = 'rgba(117, 75, 27, 1.0)'
-let rgbDkGray = 'rgba(128, 128, 128, 1.0)'
-let rgbLtBlue = 'rgba(9, 193, 240, 1.0)'
-let rgbLtBrown = 'rgba(171, 145, 91, 1.0)'
-let rgbLtGreen = 'rgba(144, 238, 144, 1.0)'
-let rgbRed = 'rgba(255, 0, 0, 1.0)'
-let rgbViolet = 'rgba(255, 0, 255, 1.0)'
-let rgbWhite = 'rgba(255, 255, 255, 1.0)'
-let rgbYellow = 'rgba(255, 255, 0, 1.0)'
+let rgbBlack = "rgba(0, 0, 0, 1.0)";
+let rgbBlue = "rgba(0, 0, 255, 1.0)";
+let rgbBrown = "rgba(117, 75, 27, 1.0)";
+let rgbDkGray = "rgba(128, 128, 128, 1.0)";
+let rgbLtBlue = "rgba(9, 193, 240, 1.0)";
+let rgbLtBrown = "rgba(171, 145, 91, 1.0)";
+let rgbLtGreen = "rgba(144, 238, 144, 1.0)";
+let rgbRed = "rgba(255, 0, 0, 1.0)";
+let rgbViolet = "rgba(255, 0, 255, 1.0)";
+let rgbWhite = "rgba(255, 255, 255, 1.0)";
+let rgbYellow = "rgba(255, 255, 0, 1.0)";
 
 // Global variables
 let srcRect = new Array(70);
 let eventRect = new Array(20);
-for(let i = 0; i < eventRect.length; i++)
-  eventRect[i] = new Rect(0, 0, 0, 0);
+for (let i = 0; i < eventRect.length; i++) eventRect[i] = new Rect(0, 0, 0, 0);
 
 let eventKind = initMultiArray(20, 3);
 
@@ -228,8 +220,7 @@ let musicOn = false;
 let reserveRects = new Array(20);
 let nAnimates = 0;
 let theAnimates = new Array(20);
-for(let i = 0; i < 20; i++)
-  theAnimates[i] = new AnimateRec();
+for (let i = 0; i < 20; i++) theAnimates[i] = new AnimateRec();
 let animateRct = initMultiArray(3, 20); // 2nd index is -1..16 in Pascal
 let animateCrushed = 19;
 let theBand = new BandRec();
@@ -300,7 +291,7 @@ const absMouse = 3;
 const relMouse = 4;
 let controlMethod = holdKey;
 
-//?????? Not sure if these are needed 
+//?????? Not sure if these are needed
 // Seem to be to do with positioning Glider window centred in the screen
 
 let rightOffset = 0;
@@ -312,8 +303,7 @@ let TimeEnteredRoom = 0;
 let theLightning = new LightningRec();
 
 let theKeys = new Array(128);
-for(let i = 0; i < 128; i++)
-  theKeys[i] = false;
+for (let i = 0; i < 128; i++) theKeys[i] = false;
 
 // Customisable in the original
 let leftKey = 37;
@@ -322,17 +312,17 @@ let energyKey = 13;
 let bandKey = 32;
 let pauseKey = 27;
 
-let screenCanvas = document.getElementById('canvas');
-let screenContext = screenCanvas.getContext('2d');
-let maskCanvas = document.createElement('canvas');
-let maskContext = maskCanvas.getContext('2d');
+let screenCanvas = document.getElementById("canvas");
+let screenContext = screenCanvas.getContext("2d");
+let maskCanvas = document.createElement("canvas");
+let maskContext = maskCanvas.getContext("2d");
 maskCanvas.width = screenCanvas.width;
 maskCanvas.height = screenCanvas.height;
 
 let musicAudio = null;
 
-let offscreenCanvas = document.createElement('canvas');
-let offscreenContext = offscreenCanvas.getContext('2d');
+let offscreenCanvas = document.createElement("canvas");
+let offscreenContext = offscreenCanvas.getContext("2d");
 offscreenCanvas.width = screenCanvas.width;
 offscreenCanvas.height = screenCanvas.height;
 
