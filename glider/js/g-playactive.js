@@ -13,7 +13,7 @@ function FloatTheScore(whatPoints) {
   floatPoints.whereR.top = floatPoints.whereR.bottom;
   floatPoints.whereR.bottom = floatPoints.whereR.top + 12;
   PenNormal();
-  context.font = "12px verdana";
+  context.font = "12px times";
   MoveTo(floatPoints.whereR.left, floatPoints.whereR.bottom - 2);
   RGBForeColor(rgbYellow);
   floatPoints.saysWhat = whatPoints.toString();
@@ -964,7 +964,7 @@ function DrawCScene() {
       floatPoints.whereR.left += 2;
       floatPoints.whereR.top -= 1;
       floatPoints.whereR.bottom -= 1;
-      context.font = "12px verdana";
+      context.font = "12px times";
       MoveTo(floatPoints.whereR.left, floatPoints.whereR.bottom - 2);
       if (binaryFlip == 0) RGBForeColor(rgbBlue);
       else RGBForeColor(rgbRed);
@@ -1161,7 +1161,7 @@ function Coordinate() {
     bassLoop++;
     if (bassLoop >= playBassTime) {
       bassLoop = 0;
-      DoTheBass();
+      //DoTheBass();
       playBassTime =
         Math.floor((kBonusTimeToBeat - loopsThruRoom) / kBassFract) +
         kMinBassLoop;

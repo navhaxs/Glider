@@ -4,15 +4,15 @@ function DrawHeadlineBox(r) {
   PaintRect(r);
   let tempRect = InsetRect(r, 2, 2);
   RGBForeColor(rgbWhite);
-  FrameRect(tempRect);
+  FillFrameRect(tempRect);
   PenNormal();
 }
 
 function DrawRoomName(roomName) {
   let tempRect = SetRect(3, 2, 162, 23);
   DrawHeadlineBox(tempRect);
-  TextFont('12px "arial black"');
-  MoveTo(tempRect.left + 4, tempRect.top + 15);
+  TextFont('12px "arial"');
+  MoveTo(tempRect.left + 6, tempRect.top + 15);
   RGBForeColor(rgbRed);
   DrawString(roomName);
   PenNormal();

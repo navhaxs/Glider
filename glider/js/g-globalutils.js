@@ -182,7 +182,7 @@ function GameOverInit() {
 
   // Draw the score
   PenNormal();
-  TextFont("32px verdana");
+  TextFont("32px times");
   MoveTo(120, 80);
   RGBForeColor(rgbYellow);
   DrawString(tempStr);

@@ -59,14 +59,13 @@ function CheckForTimeBonus() {
 
   PenNormal();
   PaintRect(tempRect);
-  context.strokeColor = rgbWhite;
-  tempRect = InsetRect(tempRect, 3, 3);
-  FrameRect(tempRect);
+  tempRect = InsetRect(tempRect, 1, 1);
+  FillFrameRect(tempRect);
   PenNormal();
   tempRect = InsetRect(tempRect, -1, -1);
   RGBForeColor(rgbYellow);
-  context.font = "12px verdana";
-  MoveTo(tempRect.left + 3, tempRect.bottom - 3);
+  context.font = "12px times";
+  MoveTo(tempRect.left + 4, tempRect.bottom - 4);
   DrawString(tempStr);
   RGBForeColor(rgbBlack);
 }

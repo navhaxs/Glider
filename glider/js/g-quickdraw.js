@@ -16,9 +16,18 @@ function PaintRect(r) {
 }
 
 function FrameRect(r) {
+  let w = r.right - r.left - 1;
+  let h = r.bottom - r.top - 1;
+  context.strokeRect(r.left + 0.5, r.top + 0.5, w, h);
+}
+
+function FillFrameRect(r) {
   let w = r.right - r.left + 1;
   let h = r.bottom - r.top + 1;
-  context.strokeRect(r.left + 0.5, r.top + 0.5, w, h);
+  context.fillStyle = rgbWhite;
+  context.fillRect(r.left, r.top, w, h);
+  context.fillStyle = rgbBlack;
+  context.fillRect(r.left + 1, r.top + 1, w - 2, h - 2);
 }
 
 function SetRect(left, top, right, bottom) {

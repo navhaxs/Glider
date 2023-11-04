@@ -328,6 +328,7 @@ offscreenCanvas.height = screenCanvas.height;
 
 let canvas = screenCanvas;
 let context = screenContext;
+context.imageSmoothingEnabled = false;
 
 let loadPromises = new Array();
 let houseSelect = document.getElementById("houses-select");
